@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>端午種子課程｜兩日深度修復</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #faf7f2;
+    --warm-white: #fffdf9;
+    --ink: #1e1a16;
+    --ink-mid: #4a4540;
+    --ink-light: #8a837a;
+    --ink-faint: #c5bdb5;
+    --sage: #7a8c72;
+    --sage-light: #eef2eb;
+    --blush: #c4938a;
+    --blush-light: #f5ede9;
+    --gold: #b8924a;
+    --gold-light: #f7f0e3;
+    --border: rgba(30,26,22,0.1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--warm-white);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(184,146,74,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 60% at 10% 80%, rgba(196,147,138,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--ink-light);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.1s ease forwards;
+  }
+
+  .hero-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: 300;
+    line-height: 1.65;
+    letter-spacing: 0.02em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.25s ease forwards;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--blush);
+  }
+
+  .hero-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s ease forwards;
+  }
+
+  .hero-body {
+    font-size: 15px;
+    color: var(--ink-mid);
+    line-height: 2;
+    max-width: 520px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.5s ease forwards;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--ink-faint);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    animation: fadeIn 1s 1.5s ease forwards;
+    opacity: 0;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--ink-faint), transparent);
+    animation: scrollPulse 2s 2s ease infinite;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 5rem 2rem;
+    max-width: 680px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section:last-of-type { border-bottom: none; }
+
+  .section-meta {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--ink-light);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-heading {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(20px, 3.5vw, 28px);
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-body {
+    color: var(--ink-mid);
+    line-height: 2;
+    font-size: 15px;
+  }
+
+  /* ── JIEQI BLOCK ── */
+  .jieqi-quote {
+    margin: 2rem 0;
+    padding: 1.75rem 2rem;
+    border-left: 2px solid var(--gold);
+    background: var(--gold-light);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .jieqi-quote p {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 16px;
+    line-height: 2;
+    color: var(--ink);
+  }
+
+  /* ── DAY CARDS ── */
+  .days-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .day-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.25s ease;
+  }
+
+  .day-card:hover {
+    box-shadow: 0 8px 32px rgba(30,26,22,0.08);
+  }
+
+  .day-card-header {
+    padding: 1.5rem 1.75rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .day-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 0.75rem;
+  }
+
+  .day-tag.sage { background: var(--sage-light); color: var(--sage); }
+  .day-tag.blush { background: var(--blush-light); color: var(--blush); }
+
+  .day-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+  }
+
+  .day-subtitle {
+    font-size: 13px;
+    color: var(--ink-light);
+  }
+
+  .day-topics {
+    padding: 1.25rem 1.75rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .day-topics li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--ink-mid);
+    line-height: 1.7;
+  }
+
+  .topic-mark {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--ink-faint);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  /* ── BONUS ── */
+  .bonus-card {
+    margin-top: 1.5rem;
+    padding: 1.75rem;
+    background: linear-gradient(135deg, #fdf6ec 0%, #faf2f0 100%);
+    border: 1px solid rgba(184,146,74,0.2);
+    border-radius: 16px;
+  }
+
+  .bonus-pill {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    padding: 4px 12px;
+    background: white;
+    color: var(--gold);
+    border: 1px solid rgba(184,146,74,0.3);
+    border-radius: 20px;
+    margin-bottom: 1rem;
+  }
+
+  .bonus-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 17px;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+
+  .bonus-desc {
+    font-size: 14px;
+    color: var(--ink-mid);
+    line-height: 1.9;
+  }
+
+  /* ── INFO GRID ── */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 2rem 0;
+  }
+
+  .info-cell {
+    background: var(--warm-white);
+    padding: 1.25rem;
+  }
+
+  .info-label {
+    font-size: 11px;
+    color: var(--ink-light);
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  .info-value {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  .info-value.big {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 22px;
+    color: var(--ink);
+  }
+
+  .info-note {
+    font-size: 11px;
+    color: var(--ink-light);
+    margin-top: 2px;
+  }
+
+  /* ── INCLUDES ── */
+  .includes-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+  }
+
+  .includes-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--ink-mid);
+  }
+
+  .includes-list li:last-child { border-bottom: none; }
+
+  .check-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--sage-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--sage);
+    font-size: 11px;
+  }
+
+  /* ── CLOSING ── */
+  .closing {
+    text-align: center;
+    padding: 5rem 2rem;
+    background: var(--warm-white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .closing::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(196,147,138,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .closing-inner {
+    max-width: 520px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .closing-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(18px, 3vw, 24px);
+    font-weight: 300;
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+
+  .closing-note {
+    font-size: 14px;
+    color: var(--ink-light);
+    line-height: 2;
+    margin-bottom: 2.5rem;
+  }
+
+  .heart { color: var(--blush); }
+
+  /* ── CONTACT BLOCK ── */
+  .contact-block {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 2rem 2.5rem;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    font-size: 14px;
+    color: var(--ink-mid);
+  }
+
+  .contact-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--ink-light);
+    text-transform: uppercase;
+  }
+
+  .contact-line {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 16px;
+    color: var(--ink);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; transform: scaleY(1); }
+    50%       { opacity: 0.4; transform: scaleY(0.7); }
+  }
+
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 600px) {
+    .hero { padding: 4rem 1.5rem 3rem; }
+    .section { padding: 3.5rem 1.5rem; }
+    .day-card-header, .day-topics { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .info-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" aria-label="課程介紹">
+  <div class="hero-inner">
+    <p class="eyebrow">2025 端午 · 首批種子課程</p>
+    <h1 class="hero-title">
+      妳醒來，<em>身體是輕的</em>。<br>
+      不需要先撐起什麼，<br>
+      就已經感覺到自己是完整的。
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-body">
+      這不是遙遠的理想——<br>
+      這是妳的身體，在被好好照顧之後，<br>
+      本來就知道怎麼存在的狀態。<br>
+      這是妳值得擁有的生活。
+    </p>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="scroll-line"></div>
+    <span>往下滑</span>
+  </div>
+</section>
+
+<!-- 節氣 -->
+<section class="section reveal">
+  <p class="section-meta">節氣智慧</p>
+  <h2 class="section-heading">端午 × 節氣轉換<br>一年之中，陽氣最盛的節點</h2>
+  <p class="section-body">
+    端午，不只是吃粽子的節日。在古老的節氣智慧裡，這是一年陽氣由升轉穩的關鍵時刻——身體最容易感應到能量流轉，也最適合補氣、清整、重新校準自己的節奏。
+  </p>
+  <div class="jieqi-quote">
+    <p>今年，我們選在這個時機，開啟第一梯種子課程。<br>不是巧合，是因為時機本身，就是修復的一部分。</p>
+  </div>
+</section>
+
+<!-- 課程內容 -->
+<section class="section reveal">
+  <p class="section-meta">兩日深度修復</p>
+  <h2 class="section-heading">課程內容</h2>
+
+  <div class="days-grid">
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-tag sage">Day 1 · 6/20（六）</span>
+        <h3 class="day-title">回到自己</h3>
+        <p class="day-subtitle">關係、情緒與安全感修復</p>
+      </div>
+      <ul class="day-topics">
+        <li><span class="topic-mark"></span>身體如何記住情緒</li>
+        <li><span class="topic-mark"></span>停止過度撐住</li>
+        <li><span class="topic-mark"></span>關係模式與慣性覺察</li>
+        <li><span class="topic-mark"></span>找回安全感與支持感</li>
+        <li><span class="topic-mark"></span>情緒釋放與身體放鬆</li>
+      </ul>
+    </div>
+
+    <div class="day-card">
+      <div class="day-card-header">
+        <span class="day-tag blush">Day 2 · 6/21（日）</span>
+        <h3 class="day-title">回到生命</h3>
+        <p class="day-subtitle">能量、祝福與生命力重啟</p>
+      </div>
+      <ul class="day-topics">
+        <li><span class="topic-mark"></span>呼吸與身體覺察引導</li>
+        <li><span class="topic-mark"></span>中脈搖動與能量流動</li>
+        <li><span class="topic-mark"></span>溫和伸展與深層放鬆</li>
+        <li><span class="topic-mark"></span>脈輪奇蹟植物能量支持</li>
+        <li><span class="topic-mark"></span>深層靜心與整合儀式</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="bonus-card">
+    <span class="bonus-pill">端午限定加碼</span>
+    <h3 class="bonus-title">夜間補光場 · 6/24（三）19:00–21:00</h3>
+    <p class="bonus-desc">
+      脊椎 × 呼吸 × 能量祝福<br>
+      為身體補氣、補光、補回生命力。<br>
+      端午當夜，一起把這段修復，好好合上。
+    </p>
+  </div>
+</section>
+
+<!-- 報名資訊 -->
+<section class="section reveal">
+  <p class="section-meta">課程資訊</p>
+  <h2 class="section-heading">報名詳情</h2>
+
+  <div class="info-grid">
+    <div class="info-cell">
+      <p class="info-label">時間</p>
+      <p class="info-value">6/20–6/21<br>10:00–17:00</p>
+    </div>
+    <div class="info-cell">
+      <p class="info-label">地點</p>
+      <p class="info-value">台北市</p>
+      <p class="info-note">報名後公告詳細地址</p>
+    </div>
+    <div class="info-cell">
+      <p class="info-label">名額</p>
+      <p class="info-value">小班深度陪伴<br>限額 6–8 位</p>
+    </div>
+    <div class="info-cell">
+      <p class="info-label">費用</p>
+      <p class="info-value big">NT$5,000</p>
+      <p class="info-note">第一梯舊學員共創價</p>
+    </div>
+  </div>
+
+  <p class="section-body" style="margin-top:0.5rem;">因為真正的修復，不是兩天完成——而是重新建立，照顧自己的節奏。</p>
+
+  <ul class="includes-list">
+    <li><span class="check-icon">✓</span>兩日完整課程（6/20–6/21）</li>
+    <li><span class="check-icon">✓</span>端午夜間補光場（6/24）</li>
+    <li><span class="check-icon">✓</span>Skool 陪伴空間</li>
+    <li><span class="check-icon">✓</span>睡前修復音頻</li>
+    <li><span class="check-icon">✓</span>每週身體支持</li>
+  </ul>
+</section>
+
+<!-- 結尾 + 聯絡 -->
+<section class="closing reveal">
+  <div class="closing-inner">
+    <h2 class="closing-title">
+      如果看到這裡，<br>
+      妳有一種「好像是在說我」的感覺——<br>
+      那就是了。<span class="heart">🤍</span>
+    </h2>
+    <p class="closing-note">想了解更多或確認名額，歡迎透過以下方式聯絡</p>
+
+    <div class="contact-block">
+      <span class="contact-label">聯絡方式</span>
+      <!-- 請將下方替換為妳的實際聯絡方式 -->
+      <span class="contact-line">LINE ID：@souloasis 生命綠洲</span>
+      <span class="contact-line">IG：@souloasis_miracal</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 · 端午種子課程 · 台北
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
